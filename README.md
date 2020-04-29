@@ -6,6 +6,8 @@ The expression can consist of:
  - logical operators (and, or)
  - comparison operators (=, <, <=, >=, >, !=)
  - parenthesis
+ - fields (a-h)
+ - integers
  
  
 Context-free grammar - BNF:
@@ -26,6 +28,7 @@ Context-free grammar - BNF:
          |   <factor>
 
 <factor> ::= ( <expression> )
+         |   integer
          |   a
          |   b
          |   c
@@ -37,13 +40,13 @@ Context-free grammar - BNF:
 ```
 
 Usage:  
-let's assume we have following data, where next values in a tuple are next fields from a to h:  
+Program accepts csv files with data. File path can be passed as argument to the program.  
+To run interpreter run `python collection_query path/to/dataset.csv`  
+Let's assume we have following data, where next values in a tuple are next fields from a to h:  
 ```
-data = [
-    (1, 2, 3, 4, 5, 6, 7, 8),
-    (8, 7, 6, 5, 4, 3, 2, 1),
-    (5, 5, 5, 1, 2, 3, 4, 5)
-]
+1,2,3,4,5,6,7,8
+8,7,6,5,4,3,2,1
+5,5,5,1,2,3,4,5
 ```
 Query example:
 ```
@@ -63,9 +66,7 @@ AND (
     )
 )
 Press enter to continue...
-
-Output:
-[
-    (5, 5, 5, 1, 2, 3, 4, 5)
-]
+Result:
+Record(a=5, b=5, c=5, d=1, e=2, f=3, g=4, h=5)
+1 record(s) returned
 ```
