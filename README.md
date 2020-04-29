@@ -62,7 +62,7 @@ AND (
         c
     )
 )
-Press any key to continue...
+Press enter to continue...
 
 Output:
 [

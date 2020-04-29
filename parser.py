@@ -12,6 +12,10 @@ class AST:
     def dumps(self, depth):
         ...
 
+    @abstractmethod
+    def evaluate(self, record):
+        ...
+
 
 class Operation(AST):
     def __init__(self, token, left_node: AST, right_node: AST):
@@ -26,6 +30,12 @@ class Operation(AST):
         result += "\t" * depth + ")"
         return result
 
+    def evaluate(self, record):
+        op = "==" if self.token.value == "=" else self.token.value.lower()
+        return eval(f"{self.left_node.evaluate(record)} "
+                    f"{op} "
+                    f"{self.right_node.evaluate(record)}")
+
 
 class Field(AST):
     def __init__(self, token):
@@ -36,6 +46,9 @@ class Field(AST):
         out = "\t" * depth + self.field
         return out
 
+    def evaluate(self, record):
+        return getattr(record, self.field)
+
 
 class Number(AST):
     def __init__(self, token):
@@ -44,6 +57,9 @@ class Number(AST):
 
     def dumps(self, depth=0):
         return "\t" * depth + str(self.value)
+
+    def evaluate(self, record):
+        return self.value
 
 
 class Parser:
