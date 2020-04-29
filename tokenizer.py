@@ -50,7 +50,7 @@ class Tokenizer:
         if token_value in LogicalTokens:
             return Token(TokenType.LOGICAL_OPERATOR, token_value)
 
-        raise SyntaxError(f"Syntax error, invalid token {token_value}")
+        raise SyntaxError(f"Syntax error, invalid token '{token_value}'")
 
     def _next_char(self) -> None:
         self.pos += 1

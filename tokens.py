@@ -14,3 +14,14 @@ LogicalTokens = ['OR', 'AND']
 ComparisonTokens = ['=', '<', '<=', '>', '>=', '!=']
 FieldTokens = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
 BracketTokens = ['(', ')']
+
+token_to_name = {
+    'OR': 'OR',
+    'AND': 'AND',
+    '=': 'EQ',
+    '<': 'LT',
+    '<=': 'LE',
+    '>=': 'GE',
+    '>': 'GT',
+    '!=': 'NE',
+}
