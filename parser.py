@@ -34,7 +34,6 @@ class Field(AST):
 
     def dumps(self, depth=0):
         out = "\t" * depth + self.field
-        # print("Field", out)
         return out
 
 
@@ -53,7 +52,10 @@ class Parser:
         self.current_token = self.tokenizer.next_token()
 
     def parse(self):
-        return self._expr()
+        ast = self._expr()
+        if self.current_token.type_ != TokenType.EOF:
+            raise SyntaxError(f"Unexpected token '{self.current_token.value}'")
+        return ast
 
     def _expr(self):
         node = self._phrase()
@@ -103,10 +105,10 @@ class Parser:
             self._next_token()
             return Field(token)
 
-        return None
+        raise SyntaxError("Logical and comparison operators require two operands.")
 
     def _next_token(self, expected=None):
         if expected and self.current_token != expected:
-            raise SyntaxError(f"Error while parsing token {self.current_token}, "
-                              f"expected {expected}")
+            raise SyntaxError(f"Error while parsing token {self.current_token.value}, "
+                              f"expected {expected.value}")
         self.current_token = self.tokenizer.next_token()

@@ -37,18 +37,20 @@ class Tokenizer:
             self._next_char()
             return token
 
-        token_value = self._get_value()
+        if not self.char.isalpha():
+            token_value = self._get_comparison_token()
+            if token_value in ComparisonTokens:
+                return Token(TokenType.COMPARISON_OPERATOR, token_value)
+        else:
+            token_value = self._get_value()
 
-        if token_value in FieldTokens:
-            return Token(TokenType.FIELD, token_value)
+            if token_value in FieldTokens:
+                return Token(TokenType.FIELD, token_value)
 
-        if token_value in ComparisonTokens:
-            return Token(TokenType.COMPARISON_OPERATOR, token_value)
+            token_value = token_value.upper()
 
-        token_value = token_value.upper()
-
-        if token_value in LogicalTokens:
-            return Token(TokenType.LOGICAL_OPERATOR, token_value)
+            if token_value in LogicalTokens:
+                return Token(TokenType.LOGICAL_OPERATOR, token_value)
 
         raise SyntaxError(f"Syntax error, invalid token '{token_value}'")
 
@@ -65,10 +67,14 @@ class Tokenizer:
 
     def _get_value(self) -> str:
         value = ''
-        while self.char is not None \
-                and not self.char.isspace() \
-                and not self.char.isdigit() \
-                and self.char not in BracketTokens:
+        while self.char is not None and self.char.isalpha():
             value += self.char
             self._next_char()
         return value
+
+    def _get_comparison_token(self):
+        operator = ''
+        while self.char in ('!', '>', '<', '='):
+            operator += self.char
+            self._next_char()
+        return operator

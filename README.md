@@ -49,17 +49,17 @@ Query example:
 ```
 query: a > 1 and a = b = c
 AST:
-AND(
-    GT(
+AND (
+    GT (
         a,
         1
     ),
-    EQ(
-        a,
-        EQ(
-            B,
-            C
-        )
+    EQ (
+        EQ (
+            a,
+            b
+        ),
+        c
     )
 )
 Press any key to continue...
