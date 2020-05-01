@@ -1,4 +1,5 @@
 import csv
+from typing import Iterable
 
 
 class Record:
@@ -21,7 +22,7 @@ class Record:
         return self.__str__()
 
     @staticmethod
-    def from_csv(file_dir):
+    def from_csv(file_dir) -> Iterable:
         records = []
         with open(file_dir, 'r') as csv_file:
             csv_reader = csv.reader(csv_file)

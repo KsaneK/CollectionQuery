@@ -9,7 +9,7 @@ class AST:
         self.token = token
 
     @abstractmethod
-    def dumps(self, depth):
+    def dumps(self, depth) -> str:
         ...
 
     @abstractmethod
@@ -67,7 +67,7 @@ class Parser:
         self.tokenizer = tokenizer
         self.current_token = self.tokenizer.next_token()
 
-    def parse(self):
+    def parse(self) -> AST:
         ast = self._expr()
         if self.current_token.type_ != TokenType.EOF:
             raise SyntaxError(f"Unexpected token '{self.current_token.value}'")

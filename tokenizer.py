@@ -50,6 +50,7 @@ class Tokenizer:
             token_value = token_value.upper()
 
             if token_value in LogicalTokens:
+                self._verify_logical_token(token_value)
                 return Token(TokenType.LOGICAL_OPERATOR, token_value)
 
         raise SyntaxError(f"Syntax error, invalid token '{token_value}'")
@@ -72,9 +73,14 @@ class Tokenizer:
             self._next_char()
         return value
 
-    def _get_comparison_token(self):
+    def _get_comparison_token(self) -> str:
         operator = ''
         while self.char in ('!', '>', '<', '='):
             operator += self.char
             self._next_char()
         return operator
+
+    def _verify_logical_token(self, token_value):
+        if not self.text[self.pos - len(token_value) - 1].isspace() \
+                or not self.char.isspace():
+            raise SyntaxError(f"Expected whitespaces on the sides of {token_value}")
