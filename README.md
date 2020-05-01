@@ -1,4 +1,7 @@
-# **Collection Query**
+# Collection Query
+
+#### Requirements:
+- _python 3.6 or newer_
 
 Simple expression interpreter, which allow to filter collection by 8 fields (a - h)
 
@@ -10,7 +13,7 @@ The expression can consist of:
  - integers
  
  
-Context-free grammar - BNF:
+#### Context-free grammar - BNF:
 
 ```
 <expr>   ::= <expr> OR <phrase>
@@ -39,7 +42,7 @@ Context-free grammar - BNF:
          |   h
 ```
 
-Usage:  
+#### Usage:
 Program accepts csv files with data. File path can be passed as argument to the program.  
 To run interpreter run `python collection_query path/to/dataset.csv`  
 Let's assume we have following data, where next values in a tuple are next fields from a to h:  
