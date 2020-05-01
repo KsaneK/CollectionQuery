@@ -9,7 +9,7 @@ class AST:
         self.token = token
 
     @abstractmethod
-    def dumps(self, depth) -> str:
+    def dumps(self, depth=0) -> str:
         ...
 
     @abstractmethod

@@ -20,21 +20,21 @@ def load_dataset():
 
 
 def command_loop():
-    expr = ''
-    while expr != "!q":
+    while True:
         try:
             expr = input("query: ")
         except KeyboardInterrupt:
             exit(0)
 
+        if expr == "!q":
+            exit(0)
+
         if len(expr) == 0:
             continue
+
         try:
             ast = get_ast(expr)
-            print("AST:")
-            print(ast.dumps())
-            print("Press enter to continue...", end='')
-            input()
+            print_ast(ast)
             print_result(ast)
         except SyntaxError as e:
             print(e.msg)
@@ -44,6 +44,13 @@ def get_ast(expr):
     tokenizer = Tokenizer(expr)
     parser = Parser(tokenizer)
     return parser.parse()
+
+
+def print_ast(ast):
+    print("AST:")
+    print(ast.dumps())
+    print("Press enter to continue...", end='')
+    input()
 
 
 def print_result(ast):
